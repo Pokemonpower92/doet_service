@@ -1,6 +1,7 @@
 import app from "./app";
+import { APP_PORT } from "./config/env";
 import logger from "./logger/logger";
 
-app.listen(3030, () => {
-    logger.info("Listening on port 3030");
+app.listen(APP_PORT, () => {
+    logger.info(`Listening on port ${APP_PORT}`);
 })

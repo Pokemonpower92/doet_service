@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  # Mongodb service
+  mongo_db:
+    container_name: db_container
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: doet_db
+    volumes:
+      - mongo_data:/data/db
+
+  # Node api service
+  api:
+    build: .
+    ports:
+      # local->container
+      - 3030:3030
+    environment:
+      APP_PORT: 3030
+      HOST: mongo_db
+      DB_PORT: 27017
+      DB: doet_db
+    depends_on: 
+      - mongo_db
+
+volumes:
+  mongo_data: {}

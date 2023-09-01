@@ -1,9 +1,9 @@
 import express from "express";
 import cors from "cors";
-import db from "./db/index";
 import userRouter from "./routers/userRouter";
 import doetListRouter from "./routers/doetListRouter";
 import doetRouter from "./routers/doetRouter";
+import db from "./db";
 
 const app = express();
 
