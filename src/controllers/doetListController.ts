@@ -8,7 +8,7 @@ import respond from "../helpers/respond";
 const createDoetList = async (req: express.Request, res: express.Response) => {
   try {
     logger.info(
-      `Recieved request to create doetList: ${JSON.stringify(
+      `Received request to create doetList: ${JSON.stringify(
         req.body,
       )} for user: ${req.params.user_id}`,
     );
@@ -37,7 +37,7 @@ const createDoetList = async (req: express.Request, res: express.Response) => {
 
 const getDoetListById = async (req: express.Request, res: express.Response) => {
   try {
-    logger.info(`Recieved request to get doetList: ${req.params.id}`);
+    logger.info(`Received request to get doetList: ${req.params.id}`);
     const doetList = await DoetList.findById(req.params.id);
 
     if (doetList === null) {
@@ -56,7 +56,7 @@ const getDoetListById = async (req: express.Request, res: express.Response) => {
 
 const updateDoetList = async (req: express.Request, res: express.Response) => {
   try {
-    logger.info(`Recieved request to update doetList: ${req.params.id}`);
+    logger.info(`Received request to update doetList: ${req.params.id}`);
     const doetList = await DoetList.findByIdAndUpdate(
       req.params.id,
       { $set: req.body },
@@ -79,7 +79,7 @@ const updateDoetList = async (req: express.Request, res: express.Response) => {
 
 const deleteDoetList = async (req: express.Request, res: express.Response) => {
   try {
-    logger.info(`Recieved request to delete doetList: ${req.params.id}`);
+    logger.info(`Received request to delete doetList: ${req.params.id}`);
     const doetList = await DoetList.findByIdAndDelete(req.params.id);
 
     if (doetList === null) {

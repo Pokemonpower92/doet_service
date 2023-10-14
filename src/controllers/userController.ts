@@ -24,7 +24,7 @@ const registerUser = async (req: express.Request, res: express.Response) => {
 
 const getUsers = async (req: express.Request, res: express.Response) => {
   try {
-    logger.info(`Recieved request to get all users`);
+    logger.info(`Received request to get all users`);
     const users = await User.find();
 
     respond.send200("Successfully found all users", users, res);
@@ -35,7 +35,7 @@ const getUsers = async (req: express.Request, res: express.Response) => {
 
 const getUserById = async (req: express.Request, res: express.Response) => {
   try {
-    logger.info(`Recieved request to get a user by id: ${req.params.id}`);
+    logger.info(`Received request to get a user by id: ${req.params.id}`);
     const user = await User.findById(req.params.id);
 
     if (user === null) {
@@ -54,7 +54,7 @@ const getUserById = async (req: express.Request, res: express.Response) => {
 
 const updateUserById = async (req: express.Request, res: express.Response) => {
   try {
-    logger.info(`Recieved request to update a user by id: ${req.params.id}`);
+    logger.info(`Received request to update a user by id: ${req.params.id}`);
     const user = await User.findByIdAndUpdate(
       req.params.id,
       { $set: req.body },
@@ -65,7 +65,7 @@ const updateUserById = async (req: express.Request, res: express.Response) => {
       respond.send404(`Failed to find user by id: ${req.params.id}`, res);
     } else {
       respond.send200(
-        `Sucessfully updated user by id: ${req.params.id}`,
+        `Successfully updated user by id: ${req.params.id}`,
         user,
         res,
       );
@@ -77,7 +77,7 @@ const updateUserById = async (req: express.Request, res: express.Response) => {
 
 const deleteUserById = async (req: express.Request, res: express.Response) => {
   try {
-    logger.info(`Recieved request to delete a user by id: ${req.params.id}`);
+    logger.info(`Received request to delete a user by id: ${req.params.id}`);
     const user = await User.findByIdAndDelete(req.params.id);
 
     if (user === null) {
