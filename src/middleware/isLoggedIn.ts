@@ -8,3 +8,7 @@ const isLoggedIn = (req: Request, res: Response, next: NextFunction) => {
     respond.send400("Unauthorized", res);
   }
 };
+
+export default {
+  isLoggedIn,
+};

@@ -21,12 +21,13 @@ const createDoet = async (req: express.Request, res: express.Response) => {
         doetList: doetList._id,
         ...req.body,
       }).save();
-      doetList.doets.push(newDoet._id);
-      doetList.save();
 
       if (newDoet === null) {
         respond.send404("Failed to create new doet", res);
       } else {
+        doetList.doets.push(newDoet._id);
+        doetList.save();
+
         respond.send200(
           `Successfully created new doet: ${newDoet._id}`,
           newDoet,
