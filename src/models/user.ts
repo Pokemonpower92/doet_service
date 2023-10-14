@@ -1,32 +1,43 @@
 import mongoose from "mongoose";
+import passportLocalMongoose from "passport-local-mongoose";
 import DoetList from "./doetList";
 import Doet from "./doet";
 
-const UserSchema = new mongoose.Schema({
+interface IUser {
+  email: string;
+  username: string;
+  doetLists: [mongoose.Types.ObjectId];
+}
+
+const UserSchema = new mongoose.Schema<IUser>(
+  {
     email: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
-    username: {
-        type: String,
-        required: true
-    },
-    doetLists: [{
+    doetLists: [
+      {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "DoetList"
-    }]
-}, {timestamps: true})
+        ref: "DoetList",
+      },
+    ],
+  },
+  { timestamps: true },
+);
+UserSchema.plugin(passportLocalMongoose);
 
-UserSchema.post("findOneAndDelete", async function(doc){
-    if (doc) {
-        Promise.all(doc.doetLists.map(async (doetListId: mongoose.Types.ObjectId) => {
-            const list = await DoetList.findById(doetListId);
-            await Doet.deleteMany({_id: {$in: list.doets}});
-            await DoetList.deleteOne(list._id);
-        }))
-    }
-})
+UserSchema.post("findOneAndDelete", async function (doc) {
+  if (doc) {
+    Promise.all(
+      doc.doetLists.map(async (doetListId: mongoose.Types.ObjectId) => {
+        const list = await DoetList.findById(doetListId).exec();
+        await Doet.deleteMany({ _id: { $in: list.doets } });
+        await DoetList.deleteOne(list._id);
+      }),
+    );
+  }
+});
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model<IUser>("User", UserSchema);
 
 export default User;

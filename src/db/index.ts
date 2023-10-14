@@ -1,18 +1,18 @@
 import mongoose from "mongoose";
-import { dbENV } from "../config/env";
+import { dbConfig } from "../config";
 import logger from "../logger/logger";
 
-const uri = `mongodb://${dbENV.host}:${dbENV.port}/${dbENV.database}`;
+const uri = `mongodb://${dbConfig.host}:${dbConfig.port}/${dbConfig.database}`;
 
 mongoose
-    .connect(uri)
-    .then(() => {
-        logger.info(`CONNECTION ESTABLISHED TO ${dbENV.database}`);
-    })
-    .catch((err) => {
-        logger.info(`ERROR CONNECTING TO ${dbENV.database}`);
-        logger.info(err);
-    });
+  .connect(uri)
+  .then(() => {
+    logger.info(`CONNECTION ESTABLISHED TO ${dbConfig.database}`);
+  })
+  .catch((err) => {
+    logger.info(`ERROR CONNECTING TO ${dbConfig.database}`);
+    logger.info(err);
+  });
 
 const db = mongoose.connection;
 
